@@ -1,12 +1,15 @@
 /*************************************************************************
-	> File Name: word.c
+	> File Name: getpid.c
 	> Author: Arwen
 	> Mail:745529725@qq.com 
-	> Created Time: Thu 26 Feb 2015 12:00:36 AM CST
+	> Created Time: Wed 28 Jan 2015 09:30:19 AM CST
  ************************************************************************/
 
 #include<stdio.h>
-int main()
+#include<stdlib.h>
+#include<unistd.h>
+int main(int argc,char *argv[ ])
 {
-	int a;
+	printf("pid :%d   ppid :%d\n",getpid(),getppid());
+	return 0;
 }
