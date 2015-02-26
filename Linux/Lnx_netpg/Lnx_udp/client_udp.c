@@ -19,7 +19,7 @@
 #define ser_PORT 1234
 int main(int argc, char *argv[])
 {
-	int fd_client = socket(AF_INET, SOCK_STREAM, 0);
+	int fd_client = socket(AF_INET, SOCK_DGRAM, 0);
 	if(-1 == fd_client)
 	{
 		perror("socket\n");
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	char buf[1024] = {0};
 	struct sockaddr_in fromaddr;
 	bzero(&fromaddr, sizeof(fromaddr));
-	int fromaddr_len = sizeof(fromaddr);
+    socklen_t fromaddr_len = sizeof(fromaddr);
     if(-1 == recvfrom(fd_client, buf, sizeof(buf),0,(struct sockaddr*)&fromaddr,&fromaddr_len))
 	 {
 			perror("recvfrom\n");

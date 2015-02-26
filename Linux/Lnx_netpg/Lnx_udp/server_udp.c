@@ -19,7 +19,7 @@
 #define ser_PORT 1234
 int main(int argc, char *argv[])
 {
-	int fd_listen = socket(AF_INET, SOCK_STREAM, 0);
+	int fd_listen = socket(AF_INET, SOCK_DGRAM, 0);
 	if(fd_listen == -1)
 	{
 		perror("socket!\n");
@@ -43,8 +43,7 @@ int main(int argc, char *argv[])
 	{
 		struct sockaddr_in clientaddr;
 		memset(&clientaddr, 0, sizeof(clientaddr));
-		int clientaddr_len = sizeof(struct sockaddr);
-		printf("12\n");
+		socklen_t clientaddr_len = sizeof(clientaddr);
         if(-1 == recvfrom(fd_listen, buf, sizeof(buf),0,(struct sockaddr*)&clientaddr,&clientaddr_len))
 		{
 			perror("recvfrom\n");
