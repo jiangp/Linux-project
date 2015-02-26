@@ -7,20 +7,3 @@
 
 #include<stdio.h>
 
-tdio.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.h/
-
-#include<stdio.h>
-
-tdio.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdi/
-
-#include<stdio.h>
-
-tdio.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.htdi/
-
-#include<stdio.h>
-
-tdio.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.htdi/
-
-#include<stdio.h>
-
-tdio.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.ho.htdio.htdi
