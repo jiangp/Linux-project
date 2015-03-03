@@ -215,8 +215,7 @@ int do_cd(char *dir, int fd_client, char* buf,int len)
 	char str[128]= "0";
 	printf("%s\n",dir);
 	printf("%s\n",buf);
-//	strcpy(str,getcwd);
-    getcwd(str,128);
+
 	printf("%s\n",str);
 	buf[strlen(buf) - 1 ] ='\0';
 	if(strcmp(buf,"cd ..") == 0)
