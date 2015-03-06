@@ -26,7 +26,7 @@ int main()
 	std::cout<<s1<<std::endl;
 	//////////////////// */
 	//two
-/*
+
 	std::string msg;
 	std::string str;
 	std::string s1 = "$";
@@ -39,12 +39,8 @@ int main()
 			break;
 	}
 	std::cout<<msg<<std::endl;
-*/
+
 	//
 	return 0;
 }
-void integerToString(int a)
-{
 
-
-}
