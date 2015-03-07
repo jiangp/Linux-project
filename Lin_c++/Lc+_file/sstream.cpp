@@ -28,7 +28,7 @@ int main()
 
 	std::stringstream ss;
 
-	std::vector<std::string>::iterator sit = vec_str.begin();
+	std::vector<std::string>::iterator sit = vec_str.begin();//vec_str.begin
 	for(;sit != vec_str.end(); ++sit)
 	{
 		ss<<*sit <<std::endl;
