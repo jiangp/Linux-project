@@ -25,9 +25,8 @@ int main()
 	}
 	print();
 
-	std::cin.clear();
-	print();
-	std::cin.ignore(1024, '\n');
+	std::cin.clear();// file end use this
+	std::cin.ignore(1024, '\n');//  fflush(stdin)
 
 	std::string s;
 	std::cin >> s;

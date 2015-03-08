@@ -1,20 +1,20 @@
 /*************************************************************************
-	> File Name: 1.cpp
+	> File Name: sizeof_.cpp
 	> Author: Arwen
 	> Mail:745529725@qq.com 
-	> Created Time: Fri 06 Mar 2015 10:20:04 PM CST
+	> Created Time: Sun 08 Mar 2015 11:10:43 PM CST
  ************************************************************************/
 
 #include<iostream>
 //using namespace std;
+#include<string>
 int main()
 {
-	int i = 1024;
-	int *pi =&i;
-	int **ppi = &pi;
-	std::cout << "i = " <<i
-		<< "*pi = " <<*pi
-		<< " **ppi = " <<**ppi<<std::endl;
-	//int ia3[] =ivec;
+	int i,j,k,l;
+	i = sizeof(wchar_t);
+	j = sizeof(short);
+	k = sizeof(long double);
+	l = sizeof(long);
+	std::cout << i << j << k << l << std::endl;
 	return 0;
 }
