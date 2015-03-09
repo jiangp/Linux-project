@@ -8,6 +8,7 @@
 #include<iostream>
 //using namespace std;
 #include<string>
+/*
 class X
 {
 public://                  3                null
@@ -28,3 +29,37 @@ int main(void)
 	x1.print();//print 32767  3
 	return 0;
 }
+*/
+class Point 
+{
+public:
+	Point(int x,int y):m_x(x),m_y(y)
+	{
+
+		std::cout <<"init " << std::endl;
+	}
+	~Point()
+	{
+		std::cout << "outit " << std::endl;
+	}
+
+	
+	void print()
+	{
+		std::cout << "x =" << m_x 
+			<< "y =" << m_y << std::endl;
+	}
+
+	
+private:
+		int m_x;
+		int m_y;
+
+};
+int main()
+{
+	Point num(3,4);
+	num.print();
+	return 0;
+}
+
