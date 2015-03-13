@@ -1,4 +1,0 @@
-The_Holy_Bible.txt
-map.cpp
-list.cpp
-vector.cpp
