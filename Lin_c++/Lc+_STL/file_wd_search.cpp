@@ -31,12 +31,14 @@ int main()
 void open_search_file()
 {
 	std::string file_name, line, word;  
+	std::string sc_word;
 	std::cin >> file_name;
 	std::ifstream ifs(file_name.c_str());
 	if(!ifs.good())	
 		std::cout << "open error..." << std::endl;
 	int len = 0;
-//	std::map<std::string ,std::set<int> > word_space;
+	std::set<int> word_len;
+	std::map<std::string ,std::set<int> > word_space;
 	while(getline(ifs , line))
 	{
 		++len;
@@ -48,15 +50,20 @@ void open_search_file()
 				(*it) = tolower(*it);
 		}
 		std::cout << "." ;
-	//	std::sstringstream word_stream(line);
-	//	while(word_stream >> word)
-	//	{
-		//	std::pair<std::string, std::set<int> > ret(word,len);
-		//	word_space.insert(ret);
-	//		if(!ret.first)
-	//			insert(ret->second)
-
-	//	}
+		std::sstringstream word_stream(line);
+		while(word_stream >> word)
+		{
+			std::pair<std::string, std::set<int> ::iterator> ret(word,len);
+			word_space.insert(ret);
+	     	if(!ret.first)
+			insert(ret.second):
+		}
+	}
+	std::cin >> sc_word;
+	std::map<std::string, std::set<int> >::iterator pt_out = word_space.find(sc_word.c_str());
+	if(pt_out !=word_space.end())
+	{
+		std::cout << 
 	}
 
 }
