@@ -14,9 +14,10 @@
 #include<sstream>
 #include<vector>
 #include<map>
-
+#include<set>
+#include<vector>
 void home_page_print();
-void list_file_print();
+int list_file_print();
 void home_page_print1();
 void open_search_file();
 int main()
@@ -30,18 +31,29 @@ int main()
 }
 void open_search_file()
 {
+	int find_line;
 	std::string file_name, line, word;  
 	std::string sc_word;
+
 	std::cin >> file_name;
+	std::cout << ">" <<std::endl;
+	std::cout << ">:Now you have in the lile" <<std::endl;
+	getchar();
+	getchar();
+
+	system("clear");
+	std::cout << ">:please input the word you search" <<std::endl;
 	std::ifstream ifs(file_name.c_str());
 	if(!ifs.good())	
 		std::cout << "open error..." << std::endl;
 	int len = 0;
-	std::set<int> word_len;
+	std::set<int> word_line;
 	std::map<std::string ,std::set<int> > word_space;
+	std::vector<std::string> save_line;
 	while(getline(ifs , line))
 	{
 		++len;
+		save_line.push_back(line);
 		for(std::string::iterator it = line.begin(); it != line.end(); ++it)
 		{
 			if(ispunct(*it))
@@ -49,30 +61,61 @@ void open_search_file()
 			else if(isupper(*it))
 				(*it) = tolower(*it);
 		}
-		std::cout << "." ;
-		std::sstringstream word_stream(line);
+	
+		std::istringstream word_stream(line);
 		while(word_stream >> word)
 		{
-			std::pair<std::string, std::set<int> ::iterator> ret(word,len);
-			word_space.insert(ret);
-	     	if(!ret.first)
-			insert(ret.second):
+		//	std::pair<std::string, std::set<int> > ret(word,len);
+		//	word_space.insert(ret);
+	    // 	if(ret.first)
+	     	word_space[word].insert(len);
 		}
 	}
+	
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << ">: ";
 	std::cin >> sc_word;
-	std::map<std::string, std::set<int> >::iterator pt_out = word_space.find(sc_word.c_str());
+	std::cout << ">: the word is :'";
+	std::map<std::string, std::set<int> >::iterator pt_out = word_space.find(sc_word);
 	if(pt_out !=word_space.end())
 	{
-		std::cout << 
+		std::cout << pt_out->first << " ': ";
+		std::set<int>::iterator put_line = pt_out->second.begin();
+		for(; put_line != pt_out->second.end(); ++put_line)
+		{
+			std::cout << (*put_line) << ",";
+		}
 	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << ">: input the line you find" <<std::endl;
+	std::cout << ">: " << std::endl;
+	while(std::cout << ">: ",std::cin >> find_line )
+	{
+		std::cout << std::endl;
+		if(0 < find_line && find_line <= len)
+		{
+			std::cout << ">:the line:" << save_line[find_line-1] <<std::endl;
+			std::cout << std::endl;
+			std::cout << ">: please input other or back.." <<std::endl;
+		}else
+		{
+			std::cout << ">:input error "<< std::endl;
+			std::cout << ">:please input or back.."<< std::endl;
+		}
 
+	}
 }
-void list_file_print()
+int  list_file_print()
 {
 	std::string dir_name;
 	std::ifstream ifs("file.txt");
 	if(!ifs.good())	
+	{
 		std::cout << "open error..." << std::endl;
+		return -1;
+	}
 	std::vector<std::string> dir_space;
 	while(getline(ifs , dir_name))
 	{
@@ -84,6 +127,7 @@ void list_file_print()
 	{
 		std::cout<< ++i << " : " << (*read_out) << std::endl;
 	}
+	return 0;
 }
 
 
