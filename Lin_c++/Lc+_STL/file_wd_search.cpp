@@ -16,6 +16,7 @@
 #include<map>
 #include<set>
 #include<vector>
+#include<limits>
 void home_page_print();
 int list_file_print();
 void home_page_print1();
@@ -34,19 +35,23 @@ void open_search_file()
 	int find_line;
 	std::string file_name, line, word;  
 	std::string sc_word;
-
 	std::cin >> file_name;
 	std::cout << ">" <<std::endl;
-	std::cout << ">:Now you have in the lile" <<std::endl;
-	getchar();
-	getchar();
 
+	std::ifstream ifs(file_name.c_str());
+	if(!ifs.good())
+	{
+		std::cout << ">:open error..." << std::endl;
+		exit(1);
+	}
+	int len = 0;
+	std::cout << ">:Now you have in the lile" <<std::endl;
+
+	getchar();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 	system("clear");
 	std::cout << ">:please input the word you search" <<std::endl;
-	std::ifstream ifs(file_name.c_str());
-	if(!ifs.good())	
-		std::cout << "open error..." << std::endl;
-	int len = 0;
+
 	std::set<int> word_line;
 	std::map<std::string ,std::set<int> > word_space;
 	std::vector<std::string> save_line;
@@ -65,9 +70,6 @@ void open_search_file()
 		std::istringstream word_stream(line);
 		while(word_stream >> word)
 		{
-		//	std::pair<std::string, std::set<int> > ret(word,len);
-		//	word_space.insert(ret);
-	    // 	if(ret.first)
 	     	word_space[word].insert(len);
 		}
 	}
@@ -76,16 +78,21 @@ void open_search_file()
 	std::cout << std::endl;
 	std::cout << ">: ";
 	std::cin >> sc_word;
-	std::cout << ">: the word is :'";
+
 	std::map<std::string, std::set<int> >::iterator pt_out = word_space.find(sc_word);
 	if(pt_out !=word_space.end())
 	{
-		std::cout << pt_out->first << " ': ";
+		std::cout << ">: the word is :'";
+		std::cout << pt_out->first << "': ";
 		std::set<int>::iterator put_line = pt_out->second.begin();
 		for(; put_line != pt_out->second.end(); ++put_line)
 		{
 			std::cout << (*put_line) << ",";
 		}
+	}else
+	{
+		std::cout << ">: no the word.." << std::endl; 
+		exit(1);
 	}
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -157,4 +164,5 @@ void home_page_print1()
 	std::cout << ">: please input the flie's name..." <<std::endl;
 	std::cout << std::endl;
 	std::cout << ">file name: ";
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 }
