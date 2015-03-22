@@ -39,7 +39,7 @@ public:
 	}
 
 	//=
-/*string &operator=(const string &cp)
+  string &operator=(const string &cp)
 	{
 		if(this == &cp)
 			return (*this);
@@ -221,7 +221,7 @@ public:
 	{
 		os << s.m_str;
 	}
-	*/
+	
 	void print()
 	{
 		std::cout << m_str << std::endl;
@@ -233,13 +233,14 @@ private:
 int main()
 {
     string str = "hello";
-	string str2 = "word";
-	string str3(str);
-
-	str.print();
-    str3.print();
-	printf("str's address:%x\n", str.c_str());
-	printf("str3's address:%x\n", str3.c_str());
+//	string str2 = "word";
+//	string str3(str);
+	string str2;
+	str2 = str + "a";
+	str2.print();
+//    str3.print();
+//	printf("str's address:%x\n", str.c_str());
+//	printf("str3's address:%x\n", str3.c_str());
 
 //	string str3;
 //	std::cin >> str3;

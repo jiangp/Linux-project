@@ -11,6 +11,7 @@
 #include<unistd.h>
 #include<fcntl.h>
 #include<string.h>
+#include"my_msg.h"
 #include<sys/stat.h>
 #include<sys/types.h>
 #include<sys/socket.h>
@@ -27,8 +28,13 @@ typedef struct child_tag
 	int ch_busy ;
 }child_t, *pchild_t;
 
-void make_child(pchild parr, int nchild);
+void make_child(pchild_t parr, int nchild);
 static void child_main(int fd);
+void send_fd(int sockfd, int fd);
+void recv_fd(int sockfd, int *fd);
+void handle_request(int sockfd);
+void send_n(int sockfd, char *p, int len);
+void recv_n(int sockfd, char *p, int len);
 
 #endif
 

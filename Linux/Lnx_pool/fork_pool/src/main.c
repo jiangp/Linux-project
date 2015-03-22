@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	}
 	//bin
 	struct sockaddr_in server_addr;
-	memset(server_addr, 0, sizeof(server_addr));
+	memset(&server_addr, 0, sizeof(server_addr));
 	server_addr.sin_family = AF_INET ;
 	server_addr.sin_port = htons( atoi(argv[2]));
 	server_addr.sin_addr.s_addr = inet_addr(argv[1]);
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		FD_SET(parr[index].ch_fd, &rds);
 	}
 	//accept
-	while()
+	while(1)
 	{
 		tmps = rds;
 		select(1024, &tmps, NULL ,NULL, NULL);
@@ -71,12 +71,13 @@ int main(int argc, char *argv[])
 				continue;
 			}
 			send_fd(parr[index].ch_fd, fd_client);//发送
+			
 		}
 		for(index = 0; index < nchild; ++index)
 		{
 			if(FD_ISSET(parr[index].ch_fd, &tmps))//释放空间
 			{
-				parr[index].ch_bush = 0;
+				parr[index].ch_busy = 0;
 			}
 		}
 	}

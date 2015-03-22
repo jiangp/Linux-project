@@ -7,7 +7,7 @@
 
 #include"head.h"
 static void child_main(int fd);
-void make_child(pchild childs, int nchild)
+void make_child(pchild_t childs, int nchild)
 {
 	int index = 0;
 	while(nchild > 0)
@@ -26,7 +26,7 @@ void make_child(pchild childs, int nchild)
 			exit(1);
 		}
 		close(fds[0]);
-		childs[index].ch_fd = fd[1];
+		childs[index].ch_fd = fds[1];
 		childs[index].ch_pid = pid ;
 		childs[index].ch_busy = 0 ;
 		index ++;
@@ -39,8 +39,8 @@ static void child_main(int fd)
 	int flag = 1;
 	while(1)
 	{
-		revc_fd(fd_client);
-		handle_requst(fd_client);
+		recv_fd(fd, &fd_client);
+		handle_request(fd_client);
 		write(fd, &flag, sizeof(flag));
 	}
 }
