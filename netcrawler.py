@@ -44,14 +44,14 @@ class Spider_Model:
         return items
 
 
-    # 用于加载新的段子
+    # 用于加载新的内容
     def LoadPage(self):
-        # 如果用户未输入quit则一直运行
+        # 如果用户未输入q 则一直运行
         while self.enable:
             # 如果pages数组中的内容小于2个
             if len(self.pages) < 2:
                 try:
-                    # 获取新的页面中的段子们
+                    # 获取新的页面中的内容
                     myPage = self.GetPage(str(self.page))
                     self.page += 1
                     self.pages.append(myPage)
@@ -60,7 +60,7 @@ class Spider_Model:
             else:
                 time.sleep(1)
 
-
+    # 保存和 展示
     def ShowPage(self, nowPage, page):
         for items in nowPage:
             #  f.writelines(str(line.encode('utf')))
@@ -73,28 +73,28 @@ class Spider_Model:
                 db.rollback()
             print u'第%d页' % page, items[0], items[1]
 
-          #  myInput =raw_input()
-           # if myInput == "q":
-            #    self.enable = False
-            #    db.close()
-            #    break
-
+            myInput =raw_input()
+            if myInput == "q":
+                self.enable = False
+                db.close()
+                break
+    #开始
     def Start(self):
         self.enable = True
         page = self.page
 
         print u'正在加载中请稍候......'
 
-        # 新建一个线程在后台加载段子并存储
-        thread.start_new_thread(self.LoadPage, ())
+        # 新建一个线程在后台加载内容并存储
+        thread.start_new_thread(self.LoadPage, ()) #  调用LoadPage
 
-        #----------- 加载处理糗事百科 -----------
+        #----------- 加载 处理-----------
         while self.enable:
             # 如果self的page数组中存有元素
             if self.pages:
                 nowPage = self.pages[0]
                 del self.pages[0]
-                self.ShowPage(nowPage, page)
+                self.ShowPage(nowPage, page) # 调用ShowPage
                 page += 1
 
 
