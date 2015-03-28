@@ -169,7 +169,7 @@ int searchstring(char *str,char *s)
 		{
 			if(str[j+i] == NULL)
 			{
-				max>k ? max : k;
+				max > k ? max : k;
 			}
 			if(str[j] == str[j+i])
 			{

@@ -17,9 +17,9 @@
 #include<sys/stat.h>
 #include<dirent.h>
 #include<fcntl.h>
-#define SER_IP "192.168.1.124"
+//#define SER_IP "192.168.1.78"
 
-#define SER_PORT 1234
+//#define SER_PORT 1234
 #define ADDR "/home/arwen/project/Project_FTP/file/addr.txt"
 #define MY_ASSERT(flag, msg) do{flag || (printf("%s\n",msg), exit(1), 0);}while(0)
 void child_main(int fd_client);
@@ -42,8 +42,8 @@ int main(int argc ,  char *argv[])
 	socklen_t sock_len = sizeof(clientaddr);
 	memset(&seraddr, 0, sizeof(seraddr));
 	seraddr.sin_family = AF_INET;
-	seraddr.sin_port = htons(SER_PORT);
-	seraddr.sin_addr.s_addr = inet_addr(SER_IP);
+	seraddr.sin_port = htons(atoi(argv[2]) );
+	seraddr.sin_addr.s_addr = inet_addr(argv[1]);
 	MY_ASSERT(bind(fd_listen, (struct sockaddr*)&seraddr, sizeof(seraddr))==0, "bind");//bind
 
 	MY_ASSERT(listen(fd_listen, 5) == 0, "listen");//listen

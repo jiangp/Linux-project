@@ -18,8 +18,8 @@
 #include<sys/epoll.h>
 #include<dirent.h>
 #include<fcntl.h>
-#define SER_IP "192.168.1.124"
-#define SER_PORT 1234
+//#define SER_IP "192.168.1.78"
+//#define SER_PORT 1234
 #define ADDR "/home/arwen/project/Project_FTP/src"
 #define MY_ASSERT(flag, msg) do{flag || (printf("%s\n",msg), exit(1), 0);}while(0)	
 void client_gets(int fd_client);
@@ -40,8 +40,8 @@ int main(int argc ,  char *argv[])
 	memset(&seraddr, 0, sizeof(seraddr));
 	memset(&cliaddr, 0, sizeof(cliaddr));
 	cliaddr.sin_family = AF_INET;
-	cliaddr.sin_port = htons(SER_PORT);
-	cliaddr.sin_addr.s_addr = inet_addr(SER_IP);
+	cliaddr.sin_port = htons(atoi(argv[2]));
+	cliaddr.sin_addr.s_addr = inet_addr(argv[1]);
 
 	MY_ASSERT(connect(fd_client, (struct sockaddr*)&cliaddr,sizeof(cliaddr)) ==0,"connect");
 	while(1)
