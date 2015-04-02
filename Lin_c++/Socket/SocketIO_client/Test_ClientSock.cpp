@@ -8,6 +8,8 @@
 #include"ClientSocket.h"
 #include"InetAddress.h"
 #include"SocketIO.h"
+#include<string.h>
+#include<stdlib.h>
 
 int main(int argc, char **argv)
 {
@@ -18,8 +20,8 @@ int main(int argc, char **argv)
 	SocketIO sio(cltSock.get_socket());
 	while(1)
 	{
-		char sendbuf[1024] = {0};
-		int len = sio.writen(sendbuf, sizeof(sendbuf));
+		char sendbuf[1024] = "word";
+		int len = sio.writen(sendbuf, strlen(sendbuf));
 		printf("send %d baty data\n", len);
 		sio.readn(sendbuf, sizeof(sendbuf));
 	}

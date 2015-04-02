@@ -10,7 +10,7 @@
 #include"mutex.h"
 
 Thread::Thread(ThreadCallback callback)
-	: m_pthid(0), m_isRunning(false), m_callback(std::move(callback)) 
+	: m_callback(std::move(callback)) 
 { 
 }
 
@@ -40,7 +40,7 @@ void Thread::join()
 
 void *Thread::runInThread(void *arg) 
 {
-	Thread *pt = static_cast<Thread *>(arg);
+	Thread *pt = static_cast<Thread*>(arg);
 	pt->m_callback();//calback
 	return NULL;
 }

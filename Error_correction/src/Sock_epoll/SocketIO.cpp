@@ -10,7 +10,7 @@
 ssize_t SocketIO::readn(char *buf, size_t count)
 {
 	size_t nleft = count;
-	size_t nread;
+	int  nread;
 	char *bufp = (char*)buf;
 
 	while(nleft > 0)
@@ -35,7 +35,7 @@ ssize_t SocketIO::readn(char *buf, size_t count)
 ssize_t SocketIO::writen(const char *buf, size_t count)
 {
 	size_t nright = count;
-	size_t nwrite;
+	int nwrite;
 	const char *bufp = buf;
 
 	while(nright > 0)

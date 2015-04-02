@@ -9,6 +9,8 @@
 
 #include"Noncopyable.h"
 #include<sys/types.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 class SocketIO : private Noncopyable
 {

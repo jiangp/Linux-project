@@ -13,9 +13,6 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 
-//
-static_assert(sizeof(InetAddress) == sizeof(struct sockaddr_in), "InetAddres error");
-
 InetAddress::InetAddress(uint16_t port)
 {
 	::memset(&m_addr, 0, sizeof(m_addr));

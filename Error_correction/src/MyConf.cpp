@@ -37,16 +37,18 @@ void MyConf::save_to_vector()
 		{
 			ifs1.open(iter->second.c_str());
 			string line;
-		
 			while(getline(ifs1, line))
 			{
 				int pos = line.find(' ');
 				m_vec.push_back(pair<string, string>(line.substr(0,pos),(line.substr(pos + 1))));	
 			}
-	/*		for(vector<pair<string, string> >::iterator it = m_vec.begin(); it != m_vec.end(); ++it)
+
+			//test func***********************************************************************
+	           	/*for(vector<pair<string, string> >::iterator it = m_vec.begin(); it != m_vec.end(); ++it)
 			{
 				cout << it->first << " " << it->second << endl;
 			}*/
+			//********************************************************************************
 		}
 	}
 	ifs1.close();
@@ -55,8 +57,7 @@ void MyConf::save_to_vector()
 void MyConf::index_to_map()
 {
 	vector<pair<string, string> >::size_type iter = 0;
-	string word;
-	char str;
+	string word; 
 
 	for(; iter != m_vec.size(); ++iter)
 	{
@@ -64,17 +65,19 @@ void MyConf::index_to_map()
 		string::iterator it = word.begin();
 		for(; it != word.end(); ++it)
 		{
-			str = (*it);
-			m_index[str].insert(iter);
+			m_index[(*it)].insert(iter);
 		}
 	}
-/*	for(map<string, set<int> >::iterator ite = m_index.begin(); ite != m_index.end(); ++ite)
+
+	//*************************************************************************************
+	/*for(map<char, set<int> >::iterator ite = m_index.begin(); ite != m_index.end(); ++ite)
 	{
 		cout << ite->first << " : ";
 		for(set<int>::iterator i = ite->second.begin(); i != ite->second.end(); ++i)
 			cout << (*i) << " ";
 		cout << endl;
 	}*/
+	//**************************************************************************************
 
 }
 
@@ -101,14 +104,4 @@ int MyConf::get_PORT()
 	ss >> PORT;
 	return PORT;
 }
-/*
-int MyConf::get_vec()
-{
-	return m_vec;
-}
 
-int MyConf::get_map()
-{
-	return m_index;
-}
-*/

@@ -21,7 +21,7 @@ namespace Tiny
 class Pool: private Noncopyable
 {
 public:
-	typedef std::function<void ()>Task;
+	typedef std::function<void ()> Task;
 	Pool(size_t queueSize, size_t threadsNum);
 	void start();
 	void addTask(Task task);// c++11

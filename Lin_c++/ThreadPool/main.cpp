@@ -14,15 +14,16 @@ int a = 0;
 void nano_sleep(double val);
 
 void foo()
-{
-	a++;
-	printf("foo : %d\n", a);
+{	
+	++a;
+	printf("foo : %d\n",a);
+	nano_sleep(5);
 }
 int main(int argc, char **argv)
 {
-	Tiny::Pool pool(100, 4);
+	Tiny::Pool pool(10, 10);
 	pool.start();
-
+	int a;
 	while(1)
 	{
 		pool.addTask(&foo);

@@ -57,9 +57,9 @@ int Socket::init(int protocol)
 
 void Socket::bindAddress(const InetAddress &addr)
 {
-	if(::bind(m_sockfd, (SA*)addr.getSockAddrInet(), sizeof(addr)) == -1)
+	if(::bind(m_sockfd, (SA*)addr.getSockAddrInet(), sizeof(addr)) == -1)//地址绑定
 	{
-		fprintf(stderr, "bind address error\n");
+		perror("bind address error");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -67,7 +67,7 @@ void Socket::listen()
 {
 	if(::listen(m_sockfd, SOMAXCONN) == -1)
 	{
-		fprintf(stderr, "listen address error\n");
+		perror("listen address error");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -77,103 +77,9 @@ int Socket::accept()
 	int fd = ::accept(m_sockfd, NULL, NULL);
 	if(fd == -1)
 	{
-		fprintf(stderr, "accept error\n");
+		perror("accept error");
 		exit(EXIT_FAILURE);
 	}
 	return fd;
 }
 
-
-void Socket::shutdownWrite()
-{
-	if(::shutdown(m_sockfd, SHUT_WR) == -1)
-	{
-		fprintf(stderr, "shutdown error\n");
-		exit(EXIT_FAILURE);
-	}
-}
-void Socket::setTcpNoDelay(bool on)
-{
-	int optval = on ? 1 : 0 ;
-	if(::setsockopt(m_sockfd, IPPROTO_TCP, TCP_NODELAY, &optval, static_cast<socklen_t>(sizeof(optval)) == -1))
-	{
-		fprintf(stderr, "setTcpNodelay error\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void Socket::setReueseAddr(bool on)
-{
-	int optval = on ? 1 : 0;
-	if(::setsockopt(m_sockfd,
-					SOL_SOCKET,
-					SO_REUSEADDR,
-					&optval,
-					static_cast<socklen_t>(sizeof(optval)) == -1))
-	{
-		fprintf(stderr, "setReuesAddr error\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void Socket::setReuesePort(bool on)
-{
-#ifdef SO_REUSEPORT
-	int optval = on ? 1 : 0 ;
-	int ret = ::setsockopt(m_sockfd,
-					SOL_SOCKET,
-					SO_REUSEPORT,
-					&optval,
-					static_cast<socklen_t>(sizeof(optval)) == -1);
-	if(ret < 0)
-	{
-		fprintf(stderr, "setReusePort error\n");
-		exit(EXIT_FAILURE);
-	}
-#else
-	if(on)
-	{
-		fprintf(stderr, "SO_REUSEPORT is not supported.\n");
-	}
-#endif
-}
-
-
-void Socket::setKeepAlive(bool on)
-{
-	int optval = on ? 1 : 0 ;
-	if(::setsockopt(m_sockfd,
-					SOL_SOCKET,
-					SO_KEEPALIVE,
-					&optval,
-					static_cast<socklen_t>(sizeof(optval)) == -1))
-	{
-		fprintf(stderr, "setTcpNodelay error\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-//static  
-
-InetAddress Socket::getLocalAddress(int sockfd)
-{
-	struct sockaddr_in addr;
-	socklen_t len = sizeof(addr);
-	if(::getsockname(sockfd, (SA*)&addr, &len) == -1)
-	{
-		fprintf(stderr, "getPeerAddress\n");
-		exit(EXIT_FAILURE);
-	}
-	return InetAddress(addr);
-}
-InetAddress Socket::getpeerAddress(int sockfd)
-{
-	struct sockaddr_in addr;
-	socklen_t len = sizeof(addr);
-	if(::getpeername(sockfd, (SA*)&addr, &len) == -1)
-	{
-		fprintf(stderr, "getPeerAddress\n");
-		exit(EXIT_FAILURE);
-	}
-	return InetAddress(addr);
-}

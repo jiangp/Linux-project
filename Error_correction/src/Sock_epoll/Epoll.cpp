@@ -18,8 +18,8 @@ void Epoll::epoll_add_fd(int fd)
 	}
 }
 
-Epoll::Epoll(int listenfd, callback_t callback)
-	:m_listenfd(listenfd), m_callback(callback)
+Epoll::Epoll(int listenfd)          //初始化  create epoll
+	: m_listenfd(listenfd)
 {
 	m_epoll_fd = epoll_create(2048);
 	if(m_epoll_fd == -1){
@@ -30,7 +30,7 @@ Epoll::Epoll(int listenfd, callback_t callback)
 	epoll_add_fd(listenfd);
 }
 
-void Epoll::epoll_loop()
+void Epoll::epoll_loop()   //wait 函数
 {
 	int nready;
 	do{
@@ -49,22 +49,22 @@ void Epoll::epoll_loop()
 		m_ready = nready;
 }
 
-void Epoll::epoll_handle_fd(Pool_t &thp)
+void Epoll::epoll_handle_fd(Pool_t &thp, MyConf &conf)       //执行监听
 {
 	for(int i = 0; i < m_ready; ++i)
 	{
 		int fd = m_events[i].data.fd;
-		if(fd == m_listenfd)
+		if(fd == m_listenfd)             //监听是否为客户端连接
 		{
 			if(m_events[i].events &EPOLLIN)
 			{
-				 int perrfd = accept(m_listenfd, NULL, NULL);
+				 int perrfd = accept(m_listenfd, NULL, NULL);     //accept
 				 if(perrfd == -1)
 				 {
 					 std::cout << "epoll_accept!" << std::endl;
 					 exit(1);
 				 }
-				 epoll_add_fd(perrfd);
+				 epoll_add_fd(perrfd);              //事件注册  ，监听类型         
 				 std::cout << " one client connect!"<<std::endl;
 			}
 		}else
@@ -72,20 +72,18 @@ void Epoll::epoll_handle_fd(Pool_t &thp)
 			if(m_events[i].events & EPOLLIN)
 			{
 				char recvbuf[1024] = {0};
-				size_t nread = read(fd, recvbuf, sizeof(recvbuf));
+				size_t nread = read(fd, recvbuf, sizeof(recvbuf)); //接收msg
 				if(nread == 0)
 				{
 					struct epoll_event ev;
 					ev.data.fd = fd;
-					epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, fd, &ev);
+					epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, fd, &ev);//删除事件
 					std::cout << "one client leave" << std::endl;
 					close(fd);
 					continue;
 				}
-				m_callback(recvbuf, nread, fd);
-				
-				Task task(recvbuf, fd);
-			
+
+				Task task(recvbuf, fd, conf);			
 				thp.addTask(task);
 			}
 		}
@@ -94,5 +92,5 @@ void Epoll::epoll_handle_fd(Pool_t &thp)
 
 void Epoll::epoll_destroy()
 {
-	close(m_epoll_fd);
+	close(m_epoll_fd); //关闭监听
 }

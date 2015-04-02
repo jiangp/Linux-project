@@ -8,13 +8,14 @@
 #include"InetAddress.h"
 #include<string.h>
 #include<stdio.h>
+#include<errno.h>
+#include<assert.h>
 #include<stdlib.h>
 #include<sys/socket.h>
 #include<netinet/in.h>
 #include<arpa/inet.h>
 
-//
-static_assert(sizeof(InetAddress) == sizeof(struct sockaddr_in), "InetAddres error");
+//static_assert((sizeof(InetAddress) == sizeof(struct sockaddr_in)), "InetAddres error");
 
 InetAddress::InetAddress(uint16_t port)
 {

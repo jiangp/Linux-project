@@ -58,7 +58,7 @@ void* handle1(void* arg)
 }
 int main(int argc, char *argv[])
 {
-	int i,sum=0;
+	int i,sum = 0;
 	int nthds = atoi(argv[1]);
 	int ntickets = atoi(argv[2]);
 	int total = ntickets;

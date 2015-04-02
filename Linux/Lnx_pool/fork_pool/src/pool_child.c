@@ -39,8 +39,8 @@ static void child_main(int fd)
 	int flag = 1;
 	while(1)
 	{
-		recv_fd(fd, &fd_client);
-		handle_request(fd_client);
+		recv_fd(fd, &fd_client);//recv  from father fork //wait
+		handle_request(fd_client);//seng msg
 		write(fd, &flag, sizeof(flag));
 	}
 }
