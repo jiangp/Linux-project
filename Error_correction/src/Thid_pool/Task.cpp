@@ -1,16 +1,16 @@
 /*************************************************************************
-	> File Name: Task.cpp
-	> Author: Arwen
-	> Mail:745529725@qq.com 
-	> Created Time: Tue 31 Mar 2015 09:57:18 AM CST
+  > File Name: Task.cpp
+  > Author: Arwen
+  > Mail:745529725@qq.com 
+  > Created Time: Tue 31 Mar 2015 09:57:18 AM CST
  ************************************************************************/
 
 #include"Task.h"
 #include<string.h>
 #include<unistd.h>
 
-Task::Task(const std::string &msg, int sockfd, MyConf &conf)
-	:m_msg(msg) , m_sockfd(sockfd), m_ve(conf.get_vec()), m_idx(conf.get_index())
+	Task::Task(const std::string &msg, int sockfd, MyConf &conf)
+:m_msg(msg) , m_sockfd(sockfd), m_ve(conf.get_vec()), m_idx(conf.get_index())
 {
 
 }
@@ -21,18 +21,18 @@ void Task::execute()
 	string::const_iterator it = m_msg.begin();
 	for(; it != m_msg.end(); ++it)
 	{	
-		
-		    map<char, set<int> >::const_iterator iter = (*m_idx).find(*it);
-			if(iter != (*m_idx).end())
+
+		map<char, set<int> >::const_iterator iter = (*m_idx).find(*it);
+		if(iter != (*m_idx).end())
+		{
+			set<int>::iterator i = iter->second.begin();
+			for( ; i != iter->second.end(); ++i)
 			{
-				set<int>::iterator i = iter->second.begin();
-				for( ; i != iter->second.end(); ++i)
-				{
-					
-					Task::satistic(*i);
-				}				
-				
-			}
+
+				Task::satistic(*i);
+			}				
+
+		}
 	}
 	send_msg();
 	std::cout << "------" << std::endl;
@@ -107,19 +107,17 @@ void Task::get_result(Result &a)
 
 void Task::send_msg()
 {
-//	int i = 0;
-	char msg[] = {0};
-//	while( i != 5)
-//	{
-		Result str = m_result.top();
-		m_result.pop();
-//		i++;
-//	}
-		const char *word = str.get_word().c_str();
-		const char *fre = str.get_frequence().c_str();
-		int sz = str.get_dist();
 
-		sprintf(msg, "%s: %d  %s\n", word, sz, fre);
-		int len = strlen(msg);
-	    write(m_sockfd, msg, len);
+	/*send one******************************************/
+	char msg[] = {0};
+	Result str = m_result.top();
+	m_result.pop();
+	const char *word = str.get_word().c_str();
+	const char *fre = str.get_frequence().c_str();		
+	int sz = str.get_dist();
+
+	sprintf(msg, "%s: %d  %s\n", word, sz, fre);
+	int len = strlen(msg);		
+	write(m_sockfd, msg, len);
+
 }

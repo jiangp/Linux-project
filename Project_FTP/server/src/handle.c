@@ -5,9 +5,25 @@
 	> Created Time: Mon 02 Mar 2015 04:49:19 PM CST
  ************************************************************************/
 
-#include<stdio.h>
+#include"FTP_server.h"
+
+//fork  handle
 void child_main(int fd_client)
 {
+//	FILE* fp_config;
+//	char line[128] = "0"; 
+//    
+//	fp_config = fopen(ADDR, "r");
+//	if(fp_config == NULL)
+//	{
+//		printf("open addrfile fail!\n");
+//		exit(1);
+//	}
+//	memset(&line ,0, 128);
+//	fgets(line, 128, fp_config);
+//  line[strlen(line)-1] = '\0';
+
+	chdir("../file/");
 
 	int epoll_fd;
 	MY_ASSERT((epoll_fd = epoll_create(1024)) != -1, "epoll create");//epoll_create
@@ -22,6 +38,12 @@ void child_main(int fd_client)
 	{
 		memset(&my_events, 0 ,sizeof(my_events));
 		ready_events = epoll_wait(epoll_fd, my_events, 1024, -1);//epoll_wait
+		if(ready_events == -1)
+		{
+			perror("epoll_wait\n");
+			continue;
+		}
+
 		if(my_events[index].events & EPOLLIN)//  events
 		{
 
@@ -36,40 +58,34 @@ void child_main(int fd_client)
 			{	
 				if(strncmp(buf,"ls",2) == 0)
 				{
-				//	printf("ls\n");
-					scan_dir(argv[1], 1);
-
-
+					do_ls(fd_client);
 				}
 				else if(strncmp(buf,"gets",4) == 0)
 				{
-					printf("gets\n");
+				
+					do_gets(fd_client);
 
 				}
 				else if(strncmp(buf, "puts",4) == 0)
 				{
-					printf("puts\n");
-
-
+				
+					do_puts(fd_client);
 				}
 				else if(strncmp(buf,"cd",2) ==0 )
 				{
-					printf("cd\n");
-
-
+		     		do_cd(fd_client,buf,strlen(buf));
 				}
 				else if(strncmp(buf,"pwd",3) == 0)
 				{
-					printf("pwd\n");
-
-
-				}else if(strncmp(buf,"remove",6) == 0)
+					do_pwd(fd_client);
+				}else if(strncmp(buf,"remove",6) == 0)			
 				{
-					do_remove();
+				
+					do_remove(fd_client);
 				}
-				else{
-					printf("error command!\n");
-
+				else
+				{
+					continue;
 				}
 
 			}
@@ -77,4 +93,5 @@ void child_main(int fd_client)
 
 	}
 }
+
 
