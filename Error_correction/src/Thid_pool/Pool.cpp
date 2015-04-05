@@ -6,7 +6,7 @@
  ************************************************************************/
 
 #include"Pool.h"
-//#include"MyConf.h"
+
 
 
 Pool_t::Pool_t(size_t queueSize, size_t threadsNum)
@@ -52,12 +52,12 @@ Task Pool_t::getTask() //handle event
 	return task;
 }
 
-void Pool_t::runInThread()
+void Pool_t::runInThread(/*Cache cache*/)
 {
 	while(1)
 	{
 		Task task(getTask()); //取出 任务 
-		task.execute();	 //执行
+		task.execute(/*cache*/);	 //执行
 	
 	}
 }

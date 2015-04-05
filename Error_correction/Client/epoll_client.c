@@ -27,8 +27,8 @@ int main(int argc ,  char *argv[])
 	struct sockaddr_in cliaddr;
 	memset(&cliaddr, 0, sizeof(cliaddr));
 	cliaddr.sin_family = AF_INET;
-	cliaddr.sin_port = htons( atio(argv[2]) );
-	cliaddr.sin_addr.s_addr = inet_addr(argv1[1]);
+	cliaddr.sin_port = htons( atoi(argv[2]) );
+	cliaddr.sin_addr.s_addr = inet_addr(argv[1]);
 
     MY_ASSERT(connect(fd_client, (struct sockaddr*)&cliaddr, sizeof(cliaddr)) ==0,"connect");   //客户端连接函数
 	while(1)
@@ -38,7 +38,8 @@ int main(int argc ,  char *argv[])
 		write(fd_client, buf, sizeof(buf));    //write
 		memset(buf, 0, 1024);
 		read(fd_client, buf, sizeof(buf));    //read
-		printf(">:%s", buf);
+		printf(">:%s\n", buf);
+
 	}
 	return 0;
 }

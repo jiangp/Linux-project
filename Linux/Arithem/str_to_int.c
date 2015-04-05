@@ -18,7 +18,8 @@ int str_to_int(char *str)
 	int num = 0;
 	int flag = 0;
 	char* p = str;
-	if((*p) == '-'){
+	if((*p) == '-')
+	{
 		p++;
 		flag = 1;
 	}else if((*p) == '+')
@@ -28,14 +29,14 @@ int str_to_int(char *str)
 	{
 		if(*p >'0' && *p <='9')
 		{
-			num =num*10 +(*p - '0');
+			num =num*10 + (*p - '0');
 			if(num > 0x7fffffff)
 				exit(1);
 			p++;
 		}
 	}
 	if(flag)
-		num =0 - num;
+		num = 0 - num;
 	return num;
 }
 int main()

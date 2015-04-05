@@ -29,7 +29,7 @@ int  search(char *name ,char *same)
 	for(i = 0; i < strlen(name); i++)
 	{
 		k=0;
-		for(j = 0; j<strlen(same);j++)
+		for(j = 0; j < strlen(same); j++)
 		{
 			if(name[i+k] != same[j])
 			{
@@ -62,7 +62,7 @@ int KMP(char *name, char *same)
 
 	Long(name, next);
 
-	while(i < nlwn && j < slen)
+	while(i < nlen && j < slen)
 	{
 		if(j == -1 || name[i] == same[j])
 		{

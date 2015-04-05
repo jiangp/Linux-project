@@ -9,30 +9,28 @@
 #include<string.h>
 #include<unistd.h>
 
+
 	Task::Task(const std::string &msg, int sockfd, MyConf &conf)
 :m_msg(msg) , m_sockfd(sockfd), m_ve(conf.get_vec()), m_idx(conf.get_index())
 {
 
 }
 
-void Task::execute()
+void Task::execute(/*Cache &cache*/)
 {
-
-	string::const_iterator it = m_msg.begin();
+/*	string str = cache.is_maped(m_msg);
+	if(str != NULL){
+		return ;
+	}
+*/	string::const_iterator it = m_msg.begin();
 	for(; it != m_msg.end(); ++it)
 	{	
 
 		map<char, set<int> >::const_iterator iter = (*m_idx).find(*it);
 		if(iter != (*m_idx).end())
 		{
-			set<int>::iterator i = iter->second.begin();
-			for( ; i != iter->second.end(); ++i)
-			{
-
-				Task::satistic(*i);
-			}				
-
-		}
+			Task::satistic(&(iter->second));
+		}				
 	}
 	send_msg();
 	std::cout << "------" << std::endl;
@@ -42,26 +40,30 @@ void Task::execute()
 
 
 
-void Task::satistic(int ch)
+void Task::satistic(const set<int> *m_set)
 {
+	set<int>::const_iterator i = m_set->begin();
+	for(; i != m_set->end(); ++i)
+	{
+		size_t sz = m_msg.size();
+		string str = m_msg.substr(0, sz - 1);
 
-	size_t sz = m_msg.size();
-	string str = m_msg.substr(0, sz - 1);
+		pair<string, string> iter = (*m_ve)[*i];
 
-	pair<string, string> iter = (*m_ve)[ch];
-
-	int len1 = str.size();
-	int len2 = iter.first.size();
-	const char *ps1 = str.c_str();
-	const char *ps2 = iter.first.c_str();
-	//edit
-	int num = edit(ps1, len1, ps2, len2);
-	//save result
-	Result result(iter.first, iter.second, num);
-
-	Task::get_result(result);
+		int len1 = str.size();
+		int len2 = iter.first.size();
+		const char *ps1 = str.c_str();
+		const char *ps2 = iter.first.c_str();
+		//edit
+		int num = edit(ps1, len1, ps2, len2);
+		if(num < 5){
+			//save result
+		
+			Result result(iter.first, iter.second, num);
+			Task::get_result(result);
+		}
+	}
 }
-
 
 
 
@@ -107,17 +109,17 @@ void Task::get_result(Result &a)
 
 void Task::send_msg()
 {
-
 	/*send one******************************************/
-	char msg[] = {0};
-	Result str = m_result.top();
-	m_result.pop();
-	const char *word = str.get_word().c_str();
-	const char *fre = str.get_frequence().c_str();		
-	int sz = str.get_dist();
+	if(m_result.empty()){
 
-	sprintf(msg, "%s: %d  %s\n", word, sz, fre);
-	int len = strlen(msg);		
-	write(m_sockfd, msg, len);
+		string str = "no simily word!";
+		write(m_sockfd, str.c_str(), str.size());
+	}else{
 
+		//get Result from prioirty_queue
+		Result str = m_result.top();
+		m_result.pop();
+		//send to Client
+		write(m_sockfd, str.get_word().c_str(), str.get_word().size());
+	}
 }

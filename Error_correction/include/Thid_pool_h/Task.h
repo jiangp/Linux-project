@@ -17,7 +17,7 @@
 #include"MyConf.h"
 #include"Result.h"
 #include"Compare.h"
-
+//#include"Cache.h"
 
 using namespace std;
 
@@ -28,10 +28,10 @@ class Task
 public:
 	Task(const std::string &msg, int sockfd, MyConf &conf);
 
-	void execute();
+	void execute(/*Cache &cache*/);
 	int edit(const char *pstr1, int len1, const char *pstr2, int len2);
 	void get_result(Result &rst);
-	void satistic(int i);
+	void satistic(const set<int> *m_set);
 	void send_msg();
 private:
 	const std::string m_msg;
