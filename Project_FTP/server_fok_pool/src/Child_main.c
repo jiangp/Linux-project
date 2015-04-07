@@ -6,7 +6,7 @@
  ************************************************************************/
 
 #include"FTP_server.h"
-void child_main(int fd)
+void child_main(int fd)//add a pro socket
 {
 	int fd_client;
 	int flag = 1;
@@ -16,7 +16,11 @@ void child_main(int fd)
 		
 		handle(fd_client);
 	
-		write(fd, &flag, sizeof(flag));	
-	
+		write(fd, &flag, sizeof(flag));	//the pipe child -> father is close
+	    //should try fcntl beacse is not jam 
+		//the pipo ls jam  epoll errpor  
+		//the sockpair also error  T_T 
+		//popen .....
+		//mkfifo ... 
 	}
 }

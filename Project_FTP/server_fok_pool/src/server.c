@@ -13,7 +13,6 @@ int main(int argc ,  char *argv[])
 		exit(1);
 	}
 	int nchild = atoi(argv[3]);
-	int index;
 
 	pchild_t parr = (pchild_t)calloc(nchild, sizeof(child_t));
 	make_child(parr, nchild);
@@ -39,12 +38,14 @@ int main(int argc ,  char *argv[])
 	MY_ASSERT((ep_fd = epoll_create(2048)) != -1, "epoll1 create");//epoll_create
  
 	struct epoll_event my_event, my_events[1024];
-	int ready_events, i = 0;
+	int ready_events, i = 0, index;
 	my_event.events = EPOLLIN;
 	my_event.data.fd = fd_listen;
 	
 	for(i = 0; i < nchild; ++i)
 	{
+		my_event.events = EPOLLIN;
+		my_event.data.fd = parr[i].child_fd;
 		MY_ASSERT(epoll_ctl(ep_fd, EPOLL_CTL_ADD, parr[i].child_fd, &my_event) == 0, "epoll1  client"); // epoll_ctl events
 	}
 	MY_ASSERT(epoll_ctl(ep_fd, EPOLL_CTL_ADD, fd_listen, &my_event) == 0, "epoll1  client"); // epoll_ctl events
