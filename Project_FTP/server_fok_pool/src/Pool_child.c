@@ -6,6 +6,7 @@
  ************************************************************************/
 
 #include"FTP_server.h"
+#include<fcntl.h>
 void make_child(pchild_t childs, int nchild)
 {
 	int index = 0;
@@ -19,7 +20,7 @@ void make_child(pchild_t childs, int nchild)
 		}
 		pid_t pid = fork();
 		if(pid == 0)
-		{
+		{	
 			close(fds[1]);
 			child_main(fds[0]);
 			exit(1);

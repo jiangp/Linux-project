@@ -9,18 +9,20 @@
 void child_main(int fd)//add a pro socket
 {
 	int fd_client;
-	int flag = 1;
+	char flag = 1;
 	while(1)
 	{
 		recv_fd(fd, &fd_client);
-		
-		handle(fd_client);
-	
+		if(signal(SIGCHLD, SIG_IGN) == SIG_ERR)
+			return ;
+
+		handle(fd_client);	
 		write(fd, &flag, sizeof(flag));	//the pipe child -> father is close
 	    //should try fcntl beacse is not jam 
 		//the pipo ls jam  epoll errpor  
 		//the sockpair also error  T_T 
 		//popen .....
 		//mkfifo ... 
+		//fcntl is ok
 	}
 }

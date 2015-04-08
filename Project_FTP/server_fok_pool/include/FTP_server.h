@@ -21,6 +21,7 @@
 #include<dirent.h>
 #include<fcntl.h>
 #include<errno.h>
+#include<signal.h>
 
 /*** Macro defintion IP and PORT***/
 //#define SER_IP "192.168.1."
