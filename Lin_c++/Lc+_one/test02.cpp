@@ -9,7 +9,7 @@
 //using namespace std;
 int test0(void)
 {
-	int ival = static_cast<int>(3.14159);
+	int ival = static_cast<int>(3.14159);//type change
 	std::cout<<ival <<std::endl;
 }
 int main(void)
