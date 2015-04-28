@@ -16,7 +16,7 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<signal.h>
-#define SER_IP "192.168.1.124"
+#define SER_IP "192.168.122.1"
 #define SER_PORT 1234
 int send_buf(int sfd, char* buf,int len );
 int recv_buf(int sfd, char* buf,int len );
@@ -44,13 +44,16 @@ int main(int argc, char * argv[])
 		perror("conneet!");
 		close(fd_client);
 		exit(1);
-	}
+	}	
+	char buf[128] = "0";
     memset( msg, 0, 1024 );
-	strcpy( msg, argv[1]);
+	strcpy( msg, "./client_file.c");
 	send_len = strlen(msg);
 	printf("%s\n",msg);
+
     send_buf(fd_client, (char*)&send_len, 4);
 	printf("2222\n");
+	fgets(buf, 128, stdin);
 	send_buf(fd_client, (char*)&msg, send_len);
 
 	printf("%s\n",msg);

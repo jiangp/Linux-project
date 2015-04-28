@@ -16,7 +16,7 @@
 #include<netinet/in.h>
 #include<arpa/inet.h>
 #include<signal.h>
-#define SER_IP "192.168.1.124"
+#define SER_IP "192.168.122.1"
 #define SER_PORT 1234
 int recv_buf(int sfd, char* buf,int len );
 int send_buf(int sfd, char* buf,int len );
