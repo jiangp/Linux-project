@@ -30,6 +30,5 @@ int main()
 	A a=10;
 	A b=a;
 	b.print();
-
 	return 0;
 }
