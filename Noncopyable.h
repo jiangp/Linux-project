@@ -18,4 +18,5 @@ private:
 	void operator=(const Noncopyable &);
 };
 
+
 #endif
