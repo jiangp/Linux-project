@@ -1,5 +1,5 @@
 /*************************************************************************
-	> File Name: 3.cpp
+	> File Name: thesize3.cpp
 	> Author: Arwen
 	> Mail:745529725@qq.com 
 	> Created Time: Tue 10 Mar 2015 11:34:58 AM CST
@@ -9,7 +9,7 @@
 //using namespace std;
 class A{
 	int a;
-	static int b;
+	static int b; //way static not use space 
 };
 class B
 {

@@ -11,22 +11,22 @@
  
 
 person::person(int id , std::string &name, int age)
-    :m_id(id),m_name(name),m_age(age)
+    :m_id(id), m_name(name), m_age(age)
 {
 
 }
 void person::print()
 {
-	std::cout << "name = :"<<m_name<<std::endl;
-	std::cout << "id   = :"<<m_id<<std::endl;
-	std::cout << "age  = :"<<m_age<<std::endl;
+	std::cout << "name = :" << m_name << std::endl;
+	std::cout << "id   = :" << m_id << std::endl;
+	std::cout << "age  = :" << m_age << std::endl;
 }
 void person::print() const
 {
 
-	std::cout << "name = :"<<m_name<<std::endl;
-	std::cout << "id   = :"<<m_id<<std::endl;
-	std::cout << "age  = :"<<m_age<<std::endl;
+	std::cout << "name = :" << m_name << std::endl;
+	std::cout << "id   = :" << m_id << std::endl;
+	std::cout << "age  = :" << m_age << std::endl;
 }
 void person::setname(std::string &name)
 {
