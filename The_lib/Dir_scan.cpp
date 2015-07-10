@@ -24,6 +24,7 @@
 
 //using namespace std;
 
+//扫描目录类，该类扫描指定目录下的项并将属于普通文件的项的绝对路径保存下来。
 class DirScan
 {
 	public:
@@ -65,6 +66,8 @@ class DirScan
 
 
 
+//文件处理类，该类将多个文件已某种格式格式化文件并将各个文件统一保存到一个文件形成网页库文件。
+//每个文件被处理成<doc><docid>id</docid><doctitle>title</doctitle><docurl>url</docurl><doccontent>content</doccontent></doc>
 class FileProcess
 {
 	public:
@@ -152,6 +155,7 @@ class FileProcess
 
 
 
+		//将格式化后的文档写到网页库文件中
 		void write_to_file(FILE* fp, char* mytxt)
 		{
 			int iret, pos = 0;
@@ -170,6 +174,7 @@ class FileProcess
 		std::string m_title; 
 		std::map<int, std::pair<int, int> > m_offset;
 };
+
 
 
 int main(int argc, char **argv)
