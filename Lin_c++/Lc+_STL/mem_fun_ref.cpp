@@ -16,27 +16,25 @@ class numval
 {
 	int val;
 public:
-	numval()
-	{
+	numval(){
 		val = 0;
 	}
-	numval(int j)
-	{
+	
+	numval(int j){
 		val = j;
 	}
-	bool display()
-	{
+	
+	bool display(){
 		std::cout << " ";
 		return true;
 	}
-	bool iseven()
-	{
+	
+	bool iseven(){
 		return(bool)!(val%2);
 	}
-	bool isprime()
-	{
-		for(int i = 2; i <= (val/2); ++i)
-		{
+	
+	bool isprime(){
+		for(int i = 2; i <= (val/2); ++i){
 			if(!(val%i)) return false;
 		}
 		return true;
@@ -46,8 +44,7 @@ int main()
 {
 	std::vector<numval> num_sp(13);
 	std::vector<numval>::iterator it1;
-	for(int i = 0; i < 13; ++i)
-	{
+	for(int i = 0; i < 13; ++i){
 		num_sp[i] = numval(i+1);
 	}
 

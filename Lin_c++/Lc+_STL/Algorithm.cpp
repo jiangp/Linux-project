@@ -28,8 +28,7 @@ int main()
 {
 	 std::vector<std::string> word_space;
 	 std::string word;
-	 while(std::cin >> word)
-	 {
+	 while(std::cin >> word){
 		 word_space.push_back(word);
 	 }
 

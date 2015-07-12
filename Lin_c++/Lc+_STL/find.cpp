@@ -12,17 +12,18 @@
 int main()
 {
 	std::ifstream ifs("file.txt");
-	std::map<std::string ,int> word_space;
+	std::map<std::string, int> word_space;
 	std::string  word;
-	while(ifs >> word)
-	{
+	while(ifs >> word){
 		std::pair<std::string, int> wd(word,1);
 		word_space.insert(wd);
+		
 		if(!wd.second)
 			++wd.second;
 	}
-	std::map<std::string ,int>::iterator it = word_space.find("map.cpp");
+	std::map<std::string, int>::iterator it = word_space.find("map.cpp");
+	
 	if(it != word_space.end())
-		std::cout << it->second <<std::endl;
+		std::cout << it->second << std::endl;
 	return 0;
 }

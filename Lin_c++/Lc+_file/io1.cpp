@@ -19,8 +19,7 @@ int main()
 {
 	int num;
 	print();
-	while(std::cin>>num)
-	{
+	while(std::cin>>num){
 		std::cout << num << std::endl;
 	}
 	print();

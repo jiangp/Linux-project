@@ -34,9 +34,6 @@ private:
 };
 
 
-
-
-
 void TextQuery::store_file(std::ifstream &is)
 {
 	std::string textline;
@@ -49,12 +46,11 @@ void TextQuery::store_file(std::ifstream &is)
 
 void TextQuery::build_map()
 {
-	for(line_no line_num = 0; line_num != line_of_text.size(); ++line_num)
-	{
+	for(line_no line_num = 0; line_num != line_of_text.size(); ++line_num){
 		std::stringstream line(line_of_text[line_num]);
 		std::string word;
-		while(line >> word)
-		{
+		
+		while(line >> word){
 			word_map[word].insert(line_num);//word store
 		}
 	}
@@ -100,8 +96,8 @@ void print_result(const std::set<TextQuery::line_no> &locs, const std::string &s
 		      << size << " "
 			  << make_plural(size, "time" , "s") << std::endl;
 	line_nums::const_iterator it = locs.begin();
-	for(; it != locs.end(); ++it)
-	{
+	
+	for(; it != locs.end(); ++it){
 		std::cout << "\t (line" 
 			      << (*it) + 1 << ") "
 				  <<file.text_line(*it) << std::endl;
@@ -130,15 +126,14 @@ std::ifstream& open_file(std::ifstream &in , const std::string &file)
 int main(int argc, char **argv)
 {
 	std::ifstream infile;
-	if(argc < 2 || !open_file(infile,argv[1]))
-	{ 
+	if(argc < 2 || !open_file(infile,argv[1])){ 
 		std::cerr << "No input file !" << std::endl;
 		return EXIT_FAILURE;
 	}
 	TextQuery tq;
 	tq.read_file(infile);
-	while(true)
-	{
+	
+	while(true){
 		std::cout << "Enter word to look for, or enter q to erxt: " << std::endl;
 		std::string s;
 		std::cin >> s;
